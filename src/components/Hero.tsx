@@ -33,13 +33,13 @@ export function Hero() {
           </div>
 
           <div className="flex items-center gap-4 mt-10">
-            <a href="#" className="p-2 text-slate-400 hover:text-slate-600 transition-colors">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 text-slate-400 hover:text-slate-900 transition-colors">
               <Github size={24} />
             </a>
-            <a href="#" className="p-2 text-slate-400 hover:text-blue-600 transition-colors">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 text-slate-400 hover:text-blue-600 transition-colors">
               <Linkedin size={24} />
             </a>
-            <a href="#" className="p-2 text-slate-400 hover:text-red-500 transition-colors">
+            <a href="mailto:hello@example.com" className="p-2 text-slate-400 hover:text-red-500 transition-colors">
               <Mail size={24} />
             </a>
           </div>
