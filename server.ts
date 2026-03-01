@@ -2,6 +2,11 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import { apiRoutes } from "./server/routes";
 import { initDb } from "./server/db";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
@@ -26,6 +31,11 @@ async function startServer() {
   } else {
     // Menyajikan file statis di mode production
     app.use(express.static("dist"));
+
+    // Catch-all route for SPA (Single Page Application)
+    app.get("*", (req, res) => {
+      res.sendFile(path.resolve(__dirname, "dist", "index.html"));
+    });
   }
 
   // Menjalankan server pada port 3000
