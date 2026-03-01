@@ -1,0 +1,5 @@
+{
+  "name": "Student Fullstack Portfolio",
+  "description": "A modern, responsive fullstack portfolio website for an 11th-grade student, featuring a React frontend, Express backend, and SQLite database.",
+  "requestFramePermissions": []
+}
