@@ -34,18 +34,18 @@ export function Projects() {
   }, []);
 
   return (
-    <section id="projects" className="py-20 bg-white px-6">
+    <section id="projects" className="py-20 bg-white dark:bg-slate-900 px-6 transition-colors duration-300">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">My Projects</h2>
-          <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
-          <p className="mt-6 text-slate-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">My Projects</h2>
+          <div className="w-20 h-1.5 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
+          <p className="mt-6 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
             Beberapa project yang telah saya kerjakan selama belajar menjadi Fullstack Developer.
           </p>
         </div>
 
         {loading ? (
-          <div className="text-center py-12 text-slate-500">Memuat project...</div>
+          <div className="text-center py-12 text-slate-500 dark:text-slate-400">Memuat project...</div>
         ) : error ? (
           <div className="text-center py-12 text-red-500">{error}</div>
         ) : (
@@ -53,7 +53,7 @@ export function Projects() {
             {projects.map((project) => (
               <div 
                 key={project.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 group"
+                className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-xl dark:hover:shadow-blue-900/10 transition-all duration-300 group"
               >
                 <div className="relative h-48 overflow-hidden">
                   <img 
@@ -87,8 +87,8 @@ export function Projects() {
                 </div>
                 
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">{project.title}</h3>
-                  <p className="text-slate-600 text-sm mb-4 line-clamp-3">
+                  <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">{project.title}</h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3">
                     {project.description}
                   </p>
                   
@@ -96,7 +96,7 @@ export function Projects() {
                     {project.technologies.split(',').map((tech) => (
                       <span 
                         key={tech.trim()} 
-                        className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full"
+                        className="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-medium rounded-full"
                       >
                         {tech.trim()}
                       </span>
