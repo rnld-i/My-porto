@@ -1,17 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { cn } from '../lib/utils';
 
 export function Gallery() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const { current } = scrollRef;
-      const scrollAmount = direction === 'left' ? -current.offsetWidth / 1.5 : current.offsetWidth / 1.5;
-      current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
-
   const images = [
     "https://picsum.photos/seed/gal1/600/800",
     "https://picsum.photos/seed/gal2/600/800",
@@ -20,56 +11,109 @@ export function Gallery() {
     "https://picsum.photos/seed/gal5/600/800",
     "https://picsum.photos/seed/gal6/600/800",
     "https://picsum.photos/seed/gal7/600/800",
-    "https://picsum.photos/seed/gal8/600/800",
   ];
 
-  return (
-    <section id="gallery" className="py-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative overflow-hidden">
-      <div className="container mx-auto px-6 max-w-6xl relative group">
-        
-        {/* Navigation Buttons */}
-        <button 
-          onClick={() => scroll('left')}
-          className="absolute left-0 md:-left-6 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur shadow-xl text-slate-800 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 hover:scale-110 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100"
-          aria-label="Scroll left"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        
-        <button 
-          onClick={() => scroll('right')}
-          className="absolute right-0 md:-right-6 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur shadow-xl text-slate-800 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 hover:scale-110 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100"
-          aria-label="Scroll right"
-        >
-          <ChevronRight size={24} />
-        </button>
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-        {/* Scroll Container */}
-        <div 
-          ref={scrollRef}
-          className="flex gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory pb-12 pt-8 px-4 -mx-4 cursor-grab active:cursor-grabbing"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          <style>{`
-            #gallery .flex::-webkit-scrollbar {
-              display: none;
-            }
-          `}</style>
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const getOffset = (index: number) => {
+    let offset = index - currentIndex;
+    const half = Math.floor(images.length / 2);
+    // Wrap around logic for infinite carousel effect
+    if (offset > half) offset -= images.length;
+    if (offset < -half) offset += images.length;
+    return offset;
+  };
+
+  return (
+    <section id="gallery" className="py-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 overflow-hidden flex items-center justify-center">
+      <div 
+        className="relative w-full max-w-6xl h-[500px] md:h-[600px] flex items-center justify-center" 
+        style={{ perspective: '1200px' }}
+      >
+        {images.map((src, index) => {
+          const offset = getOffset(index);
+          const isCenter = offset === 0;
+          const isLeft = offset === -1;
+          const isRight = offset === 1;
           
-          {images.map((src, idx) => (
-            <div 
-              key={idx}
-              className="min-w-[260px] md:min-w-[320px] aspect-[3/4] shrink-0 snap-center rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 bg-slate-200 dark:bg-slate-800"
+          // Calculate styles based on offset
+          let transformStyle = '';
+          let zIndex = 0;
+          let opacity = 1;
+          let blurClass = 'blur-0';
+
+          if (isCenter) {
+            transformStyle = 'translateX(0) scale(1) rotateY(0deg)';
+            zIndex = 30;
+            blurClass = 'blur-0';
+          } else if (isLeft) {
+            transformStyle = 'translateX(-65%) scale(0.8) rotateY(15deg)';
+            zIndex = 20;
+            blurClass = 'blur-[4px]';
+          } else if (isRight) {
+            transformStyle = 'translateX(65%) scale(0.8) rotateY(-15deg)';
+            zIndex = 20;
+            blurClass = 'blur-[4px]';
+          } else {
+            // Hidden cards (further back)
+            transformStyle = `translateX(${offset > 0 ? '120%' : '-120%'}) scale(0.6) rotateY(${offset > 0 ? '-25deg' : '25deg'})`;
+            zIndex = 10;
+            opacity = 0;
+            blurClass = 'blur-md';
+          }
+
+          return (
+            <div
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={cn(
+                "absolute w-64 md:w-80 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl transition-all duration-700 ease-out cursor-pointer",
+                blurClass
+              )}
+              style={{
+                transform: transformStyle,
+                zIndex: zIndex,
+                opacity: opacity,
+              }}
             >
-              <img 
-                src={src} 
-                alt={`Gallery image ${idx + 1}`} 
-                className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+              {/* Overlay to darken non-center cards */}
+              <div className={cn(
+                "absolute inset-0 bg-black/30 transition-opacity duration-700 z-10",
+                isCenter ? "opacity-0" : "opacity-100 hover:opacity-50"
+              )} />
+              <img
+                src={src}
+                alt={`Gallery ${index + 1}`}
+                className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
             </div>
-          ))}
-        </div>
+          );
+        })}
+
+        {/* Navigation Buttons */}
+        <button
+          onClick={handlePrev}
+          className="absolute left-4 md:left-12 z-40 p-3 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur shadow-lg text-slate-800 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 hover:scale-110 transition-all"
+          aria-label="Previous image"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          onClick={handleNext}
+          className="absolute right-4 md:right-12 z-40 p-3 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur shadow-lg text-slate-800 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-700 hover:scale-110 transition-all"
+          aria-label="Next image"
+        >
+          <ChevronRight size={24} />
+        </button>
       </div>
     </section>
   );
