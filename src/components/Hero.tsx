@@ -1,4 +1,6 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
+import { Canvas } from '@react-three/fiber';
+import { FaceParticles } from './FaceParticles';
 
 export function Hero() {
   return (
@@ -29,14 +31,11 @@ export function Hero() {
           </div>
         </div>
         
-        <div className="flex-1 relative">
-          <div className="w-64 h-64 md:w-96 md:h-96 mx-auto relative z-10">
-            <img
-              src="https://picsum.photos/seed/profile/800/800"
-              alt="Profile"
-              className="w-full h-full object-cover rounded-3xl shadow-2xl dark:shadow-blue-900/20"
-              referrerPolicy="no-referrer"
-            />
+        <div className="flex-1 relative w-full">
+          <div className="w-full h-[400px] md:h-[500px] mx-auto relative z-10 cursor-move">
+            <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+              <FaceParticles />
+            </Canvas>
           </div>
           {/* Decorative background blob */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-blue-100 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-full blur-3xl -z-10 opacity-70"></div>
