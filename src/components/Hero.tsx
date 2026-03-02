@@ -33,11 +33,11 @@ export function Hero() {
         </div>
         
         <div className="flex-1 relative w-full">
-          <div className="w-full h-[400px] md:h-[500px] mx-auto relative z-10 pointer-events-none">
+          <div className="w-full h-[400px] md:h-[500px] mx-auto relative z-10 cursor-grab active:cursor-grabbing">
             <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
               <ambientLight intensity={0.5} />
               <SmokeShader />
-              <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} autoRotate autoRotateSpeed={1.0} />
+              <OrbitControls enableZoom={false} enablePan={false} enableRotate={true} autoRotate autoRotateSpeed={1.0} />
             </Canvas>
           </div>
           {/* Decorative background blob */}
