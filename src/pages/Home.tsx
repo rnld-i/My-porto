@@ -27,7 +27,7 @@ export function Home() {
               <Mail size={20} />
             </a>
           </div>
-          <p>&copy; {new Date().getFullYear()} Nama Kamu. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} rnld-i. All rights reserved.</p>
         </div>
       </footer>
     </>
