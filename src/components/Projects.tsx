@@ -37,7 +37,7 @@ export function Projects() {
     <section id="projects" className="py-20 bg-white dark:bg-slate-900 px-6 transition-colors duration-300">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">My Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Projects</h2>
           <div className="w-20 h-1.5 bg-blue-600 dark:bg-blue-500 mx-auto rounded-full"></div>
           <p className="mt-6 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
             Beberapa project yang telah saya kerjakan selama belajar menjadi Fullstack Developer.
