@@ -1,4 +1,4 @@
-import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 
 export function Hero() {
   return (
@@ -15,22 +15,6 @@ export function Hero() {
           <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-xl leading-relaxed">
             Saya adalah siswa SMK jurusan Rekayasa Perangkat Lunak (RPL) yang bersemangat mempelajari teknologi web modern dari frontend hingga backend.
           </p>
-          
-          <div className="flex flex-wrap items-center gap-4">
-            <a
-              href="#projects"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200 dark:shadow-blue-900/20"
-            >
-              View Projects
-              <ArrowRight size={18} />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
-            >
-              Contact Me
-            </a>
-          </div>
 
           <div className="flex items-center gap-4 mt-10">
             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">
