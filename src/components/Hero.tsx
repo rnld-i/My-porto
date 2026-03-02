@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { Canvas } from '@react-three/fiber';
-import { FaceParticles } from './FaceParticles';
+import { OrbitControls } from '@react-three/drei';
+import { SmokeShader } from './SmokeShader';
 
 export function Hero() {
   return (
@@ -33,8 +34,10 @@ export function Hero() {
         
         <div className="flex-1 relative w-full">
           <div className="w-full h-[400px] md:h-[500px] mx-auto relative z-10 cursor-move">
-            <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-              <FaceParticles />
+            <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
+              <ambientLight intensity={0.5} />
+              <SmokeShader />
+              <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1.0} />
             </Canvas>
           </div>
           {/* Decorative background blob */}
