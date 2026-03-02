@@ -1,7 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useControls } from 'leva';
 
 // Simplex 3D Noise function
 const noise3D = `
@@ -182,26 +181,26 @@ void main() {
 export function SmokeShader() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
 
-  // Leva controls
-  const { speed, wavePattern, displacement, glow, color1, color2, wireframe } = useControls('Smoke Animation', {
-    speed: { value: 0.4, min: 0.1, max: 2.0, step: 0.1 },
-    wavePattern: { value: 1.5, min: 0.5, max: 5.0, step: 0.1 },
-    displacement: { value: 0.3, min: 0.0, max: 1.0, step: 0.05 },
-    glow: { value: 2.0, min: 0.5, max: 5.0, step: 0.1 },
-    color1: '#0ea5e9', // sky-500
-    color2: '#8b5cf6', // violet-500
-    wireframe: false,
-  });
+  // Hardcoded configuration
+  const config = {
+    speed: 2.0,
+    wavePattern: 5.0,
+    displacement: 0.05,
+    glow: 5.0,
+    color1: '#0ea5e9',
+    color2: '#8b5cf6',
+    wireframe: true,
+  };
 
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uSpeed: { value: speed },
-      uWavePattern: { value: wavePattern },
-      uDisplacement: { value: displacement },
-      uGlow: { value: glow },
-      uColor1: { value: new THREE.Color(color1) },
-      uColor2: { value: new THREE.Color(color2) },
+      uSpeed: { value: config.speed },
+      uWavePattern: { value: config.wavePattern },
+      uDisplacement: { value: config.displacement },
+      uGlow: { value: config.glow },
+      uColor1: { value: new THREE.Color(config.color1) },
+      uColor2: { value: new THREE.Color(config.color2) },
     }),
     []
   );
@@ -209,26 +208,19 @@ export function SmokeShader() {
   useFrame((state) => {
     if (materialRef.current) {
       materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
-      materialRef.current.uniforms.uSpeed.value = speed;
-      materialRef.current.uniforms.uWavePattern.value = wavePattern;
-      materialRef.current.uniforms.uDisplacement.value = displacement;
-      materialRef.current.uniforms.uGlow.value = glow;
-      materialRef.current.uniforms.uColor1.value.set(color1);
-      materialRef.current.uniforms.uColor2.value.set(color2);
-      materialRef.current.wireframe = wireframe;
     }
   });
 
   return (
     <mesh>
-      {/* High segment count for smooth displacement */}
-      <sphereGeometry args={[1.5, 128, 128]} />
+      {/* High segment count for smooth displacement, smaller size */}
+      <sphereGeometry args={[1.2, 128, 128]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={uniforms}
-        wireframe={wireframe}
+        wireframe={config.wireframe}
       />
     </mesh>
   );
