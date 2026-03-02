@@ -9,7 +9,7 @@ export function Hero() {
             Siswa Kelas 11 RPL
           </div>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 leading-tight">
-            Hi, I'm <span className="text-blue-600 dark:text-blue-400">Nama Kamu</span>,
+            Hi, I'm <span className="text-blue-600 dark:text-blue-400">rnld-i</span>,
             <br /> Fullstack Developer Student.
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-xl leading-relaxed">

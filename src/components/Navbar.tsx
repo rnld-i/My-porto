@@ -53,7 +53,7 @@ export function Navbar() {
     >
       <div className="container mx-auto px-6 max-w-6xl flex items-center justify-between">
         <Link to="/" className="text-2xl font-bold tracking-tighter text-blue-600 dark:text-blue-400">
-          Portfolio.
+          rnld-i
         </Link>
 
         {/* Desktop Nav */}
