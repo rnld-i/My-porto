@@ -1,6 +1,6 @@
 import { Hero } from "../components/Hero";
 import { About } from "../components/About";
-import { Skills } from "../components/Skills";
+import { Gallery } from "../components/Gallery";
 import { Github, Linkedin, Mail } from 'lucide-react';
 
 export function Home() {
@@ -8,7 +8,7 @@ export function Home() {
     <>
       <Hero />
       <About />
-      <Skills />
+      <Gallery />
       
       <footer className="bg-slate-900 dark:bg-slate-950 text-slate-400 py-12 text-center transition-colors duration-300">
         <div className="container mx-auto px-6">
